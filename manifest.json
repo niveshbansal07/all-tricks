@@ -1,0 +1,13 @@
+{
+  "name": "AllTricks",
+  "short_name": "AllTricks",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#38bdf8",
+  "icons": [
+    {"src": "/assets/images/favicon.ico", "sizes": "48x48 64x64", "type": "image/x-icon"}
+  ]
+}
+
+

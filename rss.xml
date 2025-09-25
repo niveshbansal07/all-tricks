@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>AllTricks — Blog</title>
+    <link>/blog/</link>
+    <description>AI prompts, viral image prompts, and advanced hacks.</description>
+    <item>
+      <title>Viral Image Creation Prompts (100+)</title>
+      <link>/blog/viral-image-prompts.html</link>
+      <description>Viral image prompts for Midjourney, DALL·E, and SD.</description>
+    </item>
+    <item>
+      <title>AI Prompt Collections</title>
+      <link>/blog/ai-prompt-collections.html</link>
+      <description>Handpicked prompts for multiple domains.</description>
+    </item>
+    <item>
+      <title>Advanced AI Hacks</title>
+      <link>/blog/advanced-ai-hacks.html</link>
+      <description>Unconventional techniques and patterns.</description>
+    </item>
+  </channel>
+</rss>
+
+

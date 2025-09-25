@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coming Soon — Your Site</title>
+    <meta name="description" content="We're launching soon. Subscribe for updates." />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        :root {
+            --bg1: #0f172a;
+            /* indigo-900 */
+            --bg2: #0b1220;
+            /* near-black */
+            --accent: #7c3aed;
+            /* violet */
+            --glass: rgba(255, 255, 255, 0.06);
+            --glass-2: rgba(255, 255, 255, 0.03);
+            --max-width: 980px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: radial-gradient(1200px 600px at 10% 10%, rgba(124, 58, 237, 0.12), transparent),
+                radial-gradient(800px 400px at 90% 90%, rgba(34, 197, 94, 0.06), transparent),
+                linear-gradient(180deg, var(--bg1), var(--bg2));
+            color: #e6eef8;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 20px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: var(--max-width);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+            backdrop-filter: blur(8px) saturate(120%);
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 28px;
+        }
+
+        @media (max-width:900px) {
+            .card {
+                grid-template-columns: 1fr;
+                padding: 28px
+            }
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 8px
+        }
+
+        .logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: white;
+            font-size: 20px;
+            flex: 0 0 56px
+        }
+
+        h1 {
+            margin: 6px 0 8px;
+            font-size: 34px;
+            line-height: 1.02
+        }
+
+        @media (max-width:500px) {
+            h1 {
+                font-size: 28px
+            }
+        }
+
+        p.lead {
+            margin: 0 0 18px;
+            color: #cfe6ffcc
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px
+        }
+
+        .chip {
+            background: var(--glass);
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #dbeafe
+        }
+
+        /* right column */
+        .panel {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.03)
+        }
+
+        .countdown {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            margin-bottom: 12px
+        }
+
+        .timebox {
+            flex: 1;
+            background: var(--glass-2);
+            padding: 14px;
+            border-radius: 8px;
+            text-align: center
+        }
+
+        .timebox strong {
+            display: block;
+            font-size: 20px
+        }
+
+        .timebox span {
+            display: block;
+            font-size: 12px;
+            color: #a7c1ff
+        }
+
+        form.subscribe {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px
+        }
+
+        input[type=email] {
+            flex: 1;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: transparent;
+            color: inherit;
+            outline: none
+        }
+
+        button {
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 0;
+            background: linear-gradient(90deg, var(--accent), #06b6d4);
+            color: white;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        button:active {
+            transform: translateY(1px)
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px
+        }
+
+        .sbtn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            cursor: pointer
+        }
+
+        footer {
+            margin-top: 20px;
+            color: #9fb0e6;
+            font-size: 13px
+        }
+
+        small.muted {
+            opacity: 0.7
+        }
+
+        /* subtle animated gradient underline */
+        .accent-underline {
+            display: inline-block;
+            position: relative
+        }
+
+        .accent-underline:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -6px;
+            height: 4px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent), #06b6d4);
+            opacity: 0.16;
+            transform: skewX(-12deg)
+        }
+
+        /* accessibility focus */
+        a:focus,
+        button:focus,
+        input:focus {
+            outline: 2px solid rgba(124, 58, 237, 0.28);
+            outline-offset: 2px
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="card" role="main" aria-labelledby="heading">
+
+        <section>
+            <div class="brand">
+                <div class="logo" aria-hidden>Y</div>
+                <div>
+                    <div style="font-size:13px;color:#cfe6ff66;font-weight:700">AllTricks</div>
+                    <div style="font-size:12px;color:#89a7ff66">Announcing something awesome</div>
+                </div>
+            </div>
+
+            <h1 id="heading">We're launching <span class="accent-underline">very soon</span></h1>
+            <p class="lead">A beautiful product is being prepared behind the scenes. Sign up and we'll let you know the
+                moment we go live — exclusive early access for subscribers.</p>
+
+            <div class="features" aria-hidden>
+                <div class="chip">Early access</div>
+                <div class="chip">Beta testing</div>
+                <div class="chip">Exclusive discounts</div>
+                <div class="chip">Secure & fast</div>
+            </div>
+
+            <p style="margin-top:22px;color:#cfe6ffcc">Share with friends:</p>
+            <div class="socials" role="list">
+                <a class="sbtn" href="#" aria-label="Share on Twitter" title="Share on Twitter"><svg width="18"
+                        height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+                        <path
+                            d="M22 5.92c-.6.27-1.25.45-1.93.53.7-.42 1.24-1.08 1.49-1.87-.66.39-1.4.67-2.18.82A3.34 3.34 0 0015.5 4c-1.84 0-3.33 1.5-3.33 3.34 0 .26.03.51.08.75-2.77-.14-5.23-1.47-6.88-3.5-.29.5-.45 1.08-.45 1.7 0 1.17.6 2.2 1.52 2.8-.56-.02-1.08-.17-1.54-.42v.04c0 1.6 1.13 2.94 2.62 3.24-.27.07-.55.1-.84.1-.2 0-.4-.02-.59-.06.4 1.24 1.55 2.14 2.92 2.16A6.68 6.68 0 014 18.58 9.4 9.4 0 008.86 20c5.32 0 8.24-4.4 8.24-8.22v-.37c.56-.4 1.04-.9 1.42-1.48-.52.23-1.08.39-1.66.46z"
+                            fill="currentColor" />
+                    </svg></a>
+                <a class="sbtn" href="#" aria-label="Share on Facebook" title="Share on Facebook"><svg width="16"
+                        height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                        <path
+                            d="M22 12.07C22 6.5 17.52 2 12 2S2 6.5 2 12.07c0 4.82 3.44 8.82 7.94 9.7v-6.85H7.9v-2.85h2.04V9.4c0-2.02 1.2-3.12 3.03-3.12.88 0 1.81.16 1.81.16v1.99h-1.02c-1.01 0-1.32.62-1.32 1.25v1.51h2.24l-.36 2.85h-1.88V21.8c4.5-.88 7.94-4.88 7.94-9.73z"
+                            fill="currentColor" />
+                    </svg></a>
+                <a class="sbtn" href="#" aria-label="Share on LinkedIn" title="Share on LinkedIn"><svg width="16"
+                        height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                        <path
+                            d="M4.98 3.5a2.3 2.3 0 11.02 0zM3 8.98h4v12H3zM9 8.98h3.83v1.67h.05c.53-1 1.82-2.06 3.75-2.06C20.66 8.6 22 10.8 22 14.56V21h-4v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.15 1.45-2.15 2.96V21H9z"
+                            fill="currentColor" />
+                    </svg></a>
+            </div>
+
+            <footer>
+                <small class="muted">Want to help shape the product? Reply to this email with feedback (if you signed
+                    up) or contact us at <strong>hello@example.com</strong>.</small>
+            </footer>
+        </section>
+
+        <aside class="panel" aria-label="Subscription panel">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                <div>
+                    <div style="font-size:13px;color:#cfe6ffcc;font-weight:700">Countdown to launch</div>
+                    <div style="font-size:12px;color:#9fb0e6">We're polishing the final details</div>
+                </div>
+                <div style="font-size:12px;color:#9fb0e6">Beta spots: <strong>120</strong></div>
+            </div>
+
+            <div class="countdown" role="timer" aria-live="polite">
+                <div class="timebox"><strong id="days">00</strong><span>Days</span></div>
+                <div class="timebox"><strong id="hours">00</strong><span>Hours</span></div>
+                <div class="timebox"><strong id="minutes">00</strong><span>Minutes</span></div>
+                <div class="timebox"><strong id="seconds">00</strong><span>Seconds</span></div>
+            </div>
+
+            <form class="subscribe" id="subscribeForm" onsubmit="return subscribe(event)">
+                <input id="email" type="email" placeholder="Enter your email" aria-label="Email address" required>
+                <button type="submit">Notify me</button>
+            </form>
+
+            <div id="msg" style="margin-top:12px;font-size:13px;min-height:20px"></div>
+
+            <div style="margin-top:12px;font-size:12px;color:#9fb0e6">By joining you agree to receive occasional
+                updates. We respect your privacy.</div>
+
+        </aside>
+
+    </main>
+
+    <script>
+        // --- CONFIG: set your launch date here (YYYY, M-1, D, H, M, S) ---
+        // Example: new Date(2025, 11, 25, 12, 0, 0) -> Dec 25, 2025 12:00:00
+        const LAUNCH_DATE = new Date(2025, 11, 25, 12, 0, 0);
+
+        function pad(n) { return String(n).padStart(2, '0') }
+        function updateCountdown() {
+            const now = new Date();
+            const diff = Math.max(0, LAUNCH_DATE - now);
+            const s = Math.floor(diff / 1000);
+            const days = Math.floor(s / 86400);
+            const hours = Math.floor((s % 86400) / 3600);
+            const minutes = Math.floor((s % 3600) / 60);
+            const seconds = s % 60;
+            document.getElementById('days').textContent = pad(days);
+            document.getElementById('hours').textContent = pad(hours);
+            document.getElementById('minutes').textContent = pad(minutes);
+            document.getElementById('seconds').textContent = pad(seconds);
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Simple subscribe handler — replace with your API endpoint or action
+        function subscribe(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const msg = document.getElementById('msg');
+            if (!email) { msg.textContent = 'Please enter a valid email.'; return false }
+
+            // Basic email pattern check
+            const re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+            if (!re.test(email)) { msg.textContent = 'That doesn\'t look like a valid email.'; return false }
+
+            // Simulated success (no backend). Replace this block with fetch()/XHR to your server.
+            msg.style.color = '#9fe6b2';
+            msg.textContent = 'Thanks — you\'re on the list! We\'ll send an update when we launch.';
+            document.getElementById('subscribeForm').reset();
+            return false;
+        }
+
+        // Small accessibility: reduce motion if user prefers
+        const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (mq.matches) {
+            // If reduced motion, remove setInterval
+            // (keeps one-time update)
+            // clearInterval if needed — here we won't set it twice
+        }
+    </script>
+</body>
+
+</html>

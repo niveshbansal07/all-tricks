@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Code Block with Title & Copy Button</title>
+    <style>
+        :root {
+            --bg: #0b1220;
+            --panel: #0f172a;
+            --ink: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #7c3aed;
+            --accent-2: #22d3ee;
+            --ok: #10b981;
+            --warn: #f59e0b;
+            --radius: 14px;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            --sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--sans);
+            color: var(--ink);
+            background: radial-gradient(1200px 800px at 10% 0%, rgba(124, 58, 237, .25), transparent 50%),
+                radial-gradient(1000px 700px at 90% 10%, rgba(34, 211, 238, .20), transparent 40%),
+                var(--bg);
+            padding: 32px 20px 60px;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            display: grid;
+            gap: 22px;
+        }
+
+        .title {
+            font-size: clamp(20px, 2.6vw, 30px);
+            font-weight: 700;
+            letter-spacing: .2px;
+            margin: 0 0 8px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin: 0 0 8px;
+        }
+
+        /* Code Card */
+        .code-card {
+            border-radius: var(--radius);
+            background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, .40),
+                inset 0 1px 0 rgba(255, 255, 255, .06);
+            overflow: hidden;
+            border: 1px solid rgba(148, 163, 184, .18);
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 14px 12px 16px;
+            background: linear-gradient(180deg, rgba(124, 58, 237, .2), rgba(124, 58, 237, .1));
+            border-bottom: 1px solid rgba(148, 163, 184, .18);
+        }
+
+        .code-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: .2px;
+            color: #f3f4f6;
+            white-space: nowrap;
+        }
+
+        .code-title .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--accent-2);
+            box-shadow: 0 0 14px var(--accent-2);
+        }
+
+        .copy-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--sans);
+            font-size: 13px;
+            padding: 8px 11px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(148, 163, 184, .25);
+            color: var(--ink);
+            cursor: pointer;
+            transition: transform .05s ease, background .2s ease, border-color .2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, .10);
+        }
+
+        .copy-btn:active {
+            transform: translateY(1px);
+        }
+
+        .copy-btn svg {
+            width: 16px;
+            height: 16px;
+            flex: 0 0 auto;
+        }
+
+        .copy-btn[data-state="copied"] {
+            background: rgba(16, 185, 129, .14);
+            border-color: rgba(16, 185, 129, .55);
+        }
+
+        .copy-tooltip {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            right: 50%;
+            transform: translateX(50%) translateY(6px);
+            bottom: -28px;
+            background: #0b2820;
+            color: #d1fae5;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(16, 185, 129, .45);
+            transition: opacity .18s ease, transform .18s ease;
+            white-space: nowrap;
+        }
+
+        .copy-btn[data-state="copied"] .copy-tooltip {
+            opacity: 1;
+            transform: translateX(50%) translateY(0);
+        }
+
+        pre {
+            margin: 0;
+            padding: 14px 16px 16px;
+            max-height: 420px;
+            overflow: auto;
+            font-family: var(--mono);
+            font-size: 13.5px;
+            line-height: 1.55;
+            tab-size: 2;
+            background: repeating-linear-gradient(180deg,
+                    rgba(255, 255, 255, .02) 0 28px,
+                    rgba(255, 255, 255, .03) 28px 56px), var(--panel);
+        }
+
+        code {
+            color: #e5e7eb;
+        }
+
+        .token-comment {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .token-key {
+            color: #93c5fd;
+        }
+
+        .token-fn {
+            color: #fca5a5;
+        }
+
+        .token-str {
+            color: #86efac;
+        }
+
+        .token-num {
+            color: #fcd34d;
+        }
+
+        .token-op {
+            color: #c4b5fd;
+        }
+
+        /* Small screens */
+        @media (max-width: 520px) {
+            .copy-btn span {
+                display: none;
+            }
+
+            .copy-btn {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">Reusable Code Block with Title & Copy Button</h1>
+        <p class="subtitle">Drop this component into any page. Duplicate <code>.code-card</code> for more blocks. Copy
+            works offline.</p>
+
+        <!-- Example 1: HTML block -->
+        <section class="code-card" data-lang="HTML">
+            <header class="code-header">
+                <div class="code-title"><span class="dot"></span><span>HTML – Hero Section</span></div>
+                <button class="copy-btn" type="button" aria-label="Copy HTML code">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    <span>Copy</span>
+                    <span class="copy-tooltip" role="status">Copied!</span>
+                </button>
+            </header>
+            <pre><code>&lt;section class="hero"&gt;
+  &lt;h1&gt;Welcome to &lt;span&gt;AllTricks&lt;/span&gt;&lt;/h1&gt;
+  &lt;p&gt;Clean, fast components you can reuse.&lt;/p&gt;
+  &lt;button&gt;Get Started&lt;/button&gt;
+&lt;/section&gt;</code></pre>
+        </section>
+
+        <!-- Example 2: JavaScript block -->
+        <section class="code-card" data-lang="JavaScript">
+            <header class="code-header">
+                <div class="code-title"><span class="dot"></span><span>JavaScript – Smooth Scroll</span></div>
+                <button class="copy-btn" type="button" aria-label="Copy JavaScript code">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    <span>Copy</span>
+                    <span class="copy-tooltip" role="status">Copied!</span>
+                </button>
+            </header>
+            <pre><code><span class="token-comment">// Smooth scroll to any anchor</span>
+<span class="token-key">document</span>.querySelectorAll(<span class="token-str">'a[href^="#"]'</span>).forEach(<span class="token-fn">link</span> =&gt; {
+  link.addEventListener(<span class="token-str">'click'</span>, e =&gt; {
+    e.preventDefault();
+    <span class="token-key">const</span> target = <span class="token-key">document</span>.querySelector(link.getAttribute(<span class="token-str">'href'</span>));
+    target?.scrollIntoView({ behavior: <span class="token-str">'smooth'</span> });
+  });
+});</code></pre>
+        </section>
+
+        <!-- Example 3: Python block -->
+        <section class="code-card" data-lang="Python">
+            <header class="code-header">
+                <div class="code-title"><span class="dot"></span><span>Python – Hello</span></div>
+                <button class="copy-btn" type="button" aria-label="Copy Python code">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    <span>Copy</span>
+                    <span class="copy-tooltip" role="status">Copied!</span>
+                </button>
+            </header>
+            <pre><code><span class="token-key">def</span> <span class="token-fn">hello</span>(name: <span class="token-key">str</span>) -&gt; <span class="token-key">None</span>:
+    <span class="token-key">print</span>(<span class="token-str">f"Hello, {name}!"</span>)
+
+<span class="token-fn">hello</span>(<span class="token-str">"World"</span>)</code></pre>
+        </section>
+    </div>
+
+    <script>
+        // Enhance: set the header title from data-lang if present
+        document.querySelectorAll('.code-card').forEach(card => {
+            const lang = card.getAttribute('data-lang');
+            if (lang) {
+                const titleSpan = card.querySelector('.code-title span:last-child');
+                if (titleSpan && !titleSpan.textContent.includes('–')) {
+                    titleSpan.textContent = `${lang} – Code`;
+                }
+            }
+        });
+
+        // Copy handling for all buttons
+        const supportsClipboard = !!(navigator.clipboard && navigator.clipboard.writeText);
+
+        function copyText(text) {
+            if (supportsClipboard) {
+                return navigator.clipboard.writeText(text);
+            }
+            // Fallback for older browsers
+            return new Promise((resolve, reject) => {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.top = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                try {
+                    const ok = document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    ok ? resolve() : reject(new Error('Copy failed'));
+                } catch (err) {
+                    document.body.removeChild(ta);
+                    reject(err);
+                }
+            });
+        }
+
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const card = btn.closest('.code-card');
+                const codeEl = card.querySelector('pre > code');
+                const code = codeEl ? codeEl.textContent : '';
+
+                btn.disabled = true;
+                const prev = btn.querySelector('span')?.textContent || 'Copy';
+                try {
+                    await copyText(code);
+                    btn.setAttribute('data-state', 'copied');
+                    const label = btn.querySelector('span');
+                    if (label) label.textContent = 'Copied';
+                    setTimeout(() => {
+                        btn.removeAttribute('data-state');
+                        if (label) label.textContent = prev;
+                    }, 1500);
+                } catch (err) {
+                    const label = btn.querySelector('span');
+                    if (label) label.textContent = 'Press Ctrl+C';
+                    setTimeout(() => label && (label.textContent = prev), 1200);
+                } finally {
+                    btn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
